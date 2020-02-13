@@ -3,7 +3,7 @@ import lapper
 
 # Make Interval
 
-type PyInterval = ref object
+type PyInterval = object
   start: int
   stop: int
   val: int
@@ -21,9 +21,11 @@ proc makeLapper(ivs: sink seq[PyInterval]): Lapper[PyInterval] {.exportpy.} =
 
 
 # find
-proc nyFind(self: sink Lapper[PyInterval], start: int, stop: int): bool {.exportpy.} =
+proc nyFind(self: sink Lapper[PyInterval], start: int, stop: int): seq[
+    PyInterval]{.exportpy.} =
   var ivs: seq[PyInterval]
-  self.find(start, stop, ivs)
+  discard self.find(start, stop, ivs)
+  ivs
 
 
 # seek
